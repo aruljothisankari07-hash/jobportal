@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Applied Jobs - JobHub</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <div class="logo">JobHub</div>
+
+    <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="jobs.html">Jobs</a></li>
+        <li><a href="saved-jobs.html">Saved Jobs</a></li>
+        <li><a href="applied-jobs.html">Applied Jobs</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="login.html">Login</a></li>
+    </ul>
+</nav>
+
+<!-- CONTENT -->
+<section class="jobs">
+    <h2>Applied Jobs 🚀</h2>
+
+    <div id="appliedContainer"></div>
+</section>
+
+<!-- SCRIPT -->
+<script>
+
+function loadAppliedJobs(){
+
+let jobs = JSON.parse(localStorage.getItem("appliedJobs")) || [];
+
+let container = document.getElementById("appliedContainer");
+
+container.innerHTML = "";
+
+if(jobs.length === 0){
+container.innerHTML = "<h3>No Applied Jobs Yet ❌</h3>";
+return;
+}
+
+jobs.forEach((job,index) => {
+
+container.innerHTML += `
+<div class="job-card">
+<h3>${job}</h3>
+<p>Application Submitted ✅</p>
+
+<button onclick="removeAppliedJob(${index})"
+style="background:red;margin-top:10px;">
+Remove
+</button>
+
+</div>
+`;
+
+});
+
+}
+
+function removeAppliedJob(index){
+
+let jobs = JSON.parse(localStorage.getItem("appliedJobs")) || [];
+
+jobs.splice(index,1);
+
+localStorage.setItem(
+"appliedJobs",
+JSON.stringify(jobs)
+);
+
+loadAppliedJobs();
+
+}
+
+loadAppliedJobs();
+
+</script>
+
+<!-- GLOBAL JS -->
+<script src="script.js"></script>
+
+</body>
+</html>
