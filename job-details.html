@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Job Details - JobHub</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- Navbar -->
+
+<nav class="navbar">
+    <div class="logo">JobHub</div>
+
+```
+<ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="jobs.html">Jobs</a></li>
+    <li><a href="saved-jobs.html">Saved Jobs</a></li>
+    <li><a href="companies.html">Companies</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="login.html">Login</a></li>
+</ul>
+```
+
+</nav>
+
+<!-- Job Details -->
+
+<section class="jobs">
+
+<h2 id="jobTitle">Job Details</h2>
+
+<div class="job-card">
+
+<p><strong>Location:</strong> India</p>
+
+<p><strong>Salary:</strong> ₹5 - ₹20 LPA</p>
+
+<p><strong>Skills:</strong> HTML, CSS, JavaScript, Python</p>
+
+<button onclick="applyJob()">
+Apply Now
+</button>
+
+<button onclick="saveJob()" style="margin-left:10px;">
+Save Job
+</button>
+
+</div>
+
+</section>
+
+<script>
+
+/* GET ROLE FROM URL */
+const params =
+new URLSearchParams(window.location.search);
+
+const role =
+params.get("role");
+
+document.getElementById("jobTitle").innerText =
+role || "Job Details";
+
+/* APPLY JOB */
+function applyJob(){
+
+if(!role){
+alert("No job selected ❌");
+return;
+}
+
+alert("Applied for " + role + " 🎉");
+
+}
+
+/* SAVE JOB */
+function saveJob(){
+
+if(!role){
+alert("No job selected ❌");
+return;
+}
+
+let savedJobs =
+JSON.parse(localStorage.getItem("savedJobs")) || [];
+
+savedJobs.push(role);
+
+localStorage.setItem(
+"savedJobs",
+JSON.stringify(savedJobs)
+);
+
+alert(role + " saved successfully ✅");
+
+}
+
+</script>
+
+</body>
+</html>
