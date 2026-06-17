@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profile - JobHub</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="navbar">
+<div class="logo">JobHub</div>
+
+<ul class="nav-links">
+<li><a href="index.html">Home</a></li>
+<li><a href="jobs.html">Jobs</a></li>
+<li><a href="saved-jobs.html">Saved Jobs</a></li>
+<li><a href="applied-jobs.html">Applied Jobs</a></li>
+<li><a href="profile.html">Profile</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+
+<button onclick="toggleDarkMode()" class="dark-btn">🌙</button>
+
+</nav>
+
+<section class="jobs">
+
+<h2>My Profile 👤</h2>
+
+<div class="job-card">
+
+<img
+id="preview"
+src=""
+width="150"
+height="150"
+style="border-radius:50%;object-fit:cover;margin-bottom:15px;"
+
+>
+
+<br>
+
+<input type="file" id="profilePic">
+
+<br><br>
+
+<h3 id="userName">Name</h3>
+
+<p id="userEmail">Email</p>
+
+<br>
+
+<button onclick="logout()">
+Logout
+</button>
+
+</div>
+
+</section>
+
+<script>
+
+// Load user details
+document.getElementById("userName").innerText =
+localStorage.getItem("userName") || "Guest User";
+
+document.getElementById("userEmail").innerText =
+localStorage.getItem("userEmail") || "No Email";
+
+// Profile image upload
+const profilePic =
+document.getElementById("profilePic");
+
+const preview =
+document.getElementById("preview");
+
+profilePic.addEventListener("change", function(){
+
+const file = this.files[0];
+
+if(file){
+
+const reader = new FileReader();
+
+reader.onload = function(){
+
+preview.src = reader.result;
+
+localStorage.setItem(
+"profileImage",
+reader.result
+);
+
+}
+
+reader.readAsDataURL(file);
+
+}
+
+});
+
+// Load saved image
+let savedImage =
+localStorage.getItem("profileImage");
+
+if(savedImage){
+preview.src = savedImage;
+}
+
+// Logout
+function logout(){
+
+localStorage.removeItem("userName");
+localStorage.removeItem("userEmail");
+localStorage.removeItem("userPassword");
+
+showToast("Logged Out 👋");
+
+setTimeout(()=>{
+window.location.href = "login.html";
+},1000);
+
+}
+
+</script>
+
+<script src="script.js"></script>
+
+</body>
+</html>
